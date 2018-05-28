@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import middleware.message.Message2;
-
 public class Marshaller {
 	public static byte[] marshall(Message message) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
