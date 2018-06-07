@@ -1,4 +1,4 @@
-package distribuition;
+package distribution;
 
 import java.io.Serializable;
 
@@ -7,13 +7,13 @@ public class Encryption implements Serializable  {
 	public Encryption() {}
 	
 	//Falta definir qual será o modelo
-	public Message encrypt (Message entrada) {
-		Message retorno = null;
+	public Packet encrypt (Packet in) {
+		Packet retorno = null;
 		return retorno;
 	}
 	
-	public Message decrypt(Message entrada) {
-		Message retorno = null;
+	public Packet decrypt(Packet in) {
+		Packet retorno = null;
 		return retorno;
 	}
 }

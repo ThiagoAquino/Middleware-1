@@ -1,4 +1,4 @@
-package distribuition;
+package distribution;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,24 +8,24 @@ import java.io.ObjectOutputStream;
 
 public class Marshaller {
 	static Encryption encry = new Encryption();
-	public static byte[] marshall(Message message) throws IOException {
+	public static byte[] marshall(Packet pkt) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 
 		//Criptografando
-		Message msg = encry.encrypt(message);
+		Packet pckt = encry.encrypt(pkt);
 		
-		objectStream.writeObject(msg);		
+		objectStream.writeObject(pckt);		
 		return byteStream.toByteArray();
 	}
 
-	public static Message unmarshall(byte[] message) throws IOException, ClassNotFoundException {
-		ByteArrayInputStream byteStream = new ByteArrayInputStream(message);
+	public static Packet unmarshall(byte[] pkt) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream byteStream = new ByteArrayInputStream(pkt);
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 		
 		//Descriptografando
-		Message msg = encry.decrypt((Message) objectStream.readObject());
+		Packet pckt = encry.decrypt((Packet) objectStream.readObject());
 		
-		return msg;
+		return pckt;
 	}
 }
