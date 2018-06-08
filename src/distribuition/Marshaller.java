@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 
 public class Marshaller {
 	static Encryption encry = new Encryption();
-	public static byte[] marshall(Packet pkt) throws IOException {
+	public byte[] marshall(Packet pkt) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 
@@ -19,7 +19,7 @@ public class Marshaller {
 		return byteStream.toByteArray();
 	}
 
-	public static Packet unmarshall(byte[] pkt) throws IOException, ClassNotFoundException {
+	public Packet unmarshall(byte[] pkt) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream byteStream = new ByteArrayInputStream(pkt);
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 		
