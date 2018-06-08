@@ -10,7 +10,6 @@ public class QueueManager {
 	private static QueueManager queueManager;
 	private String host;
 	private int port;
-	//private float timeToLive;
 	Map <String,Queue> queues = new HashMap<String,Queue>();
 	Map <String, ArrayList<Socket>> subscribersQueue = new HashMap<String, ArrayList<Socket>>();
 	
@@ -71,12 +70,4 @@ public class QueueManager {
 		}
 		return queueString;
 	}
-	/*
-	public void setTimeToLive(float timeToLive){
-		this.timeToLive = timeToLive;
-	}
-	
-	public float getTimeToLive(){
-		return this.timeToLive;
-	} */
 }
