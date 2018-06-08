@@ -3,18 +3,18 @@ package distribution;
 import java.io.Serializable;
 
 public class PacketHeader implements Serializable{
-	private String operation;
+	private PacketType operation;
 	
-	public PacketHeader(String operation) {
-		this.operation = operation;
+	public PacketHeader(PacketType packetType) {
+		this.operation = packetType;
 	}
 
-	public String getOperation() {
+	public PacketType getOperation() {
 		return operation;
 	}
 
-	public void setOperation(String operation) {
-		this.operation = operation;
+	public void setOperation(PacketType packetType) {
+		this.operation = packetType;
 	}
 	
 }
