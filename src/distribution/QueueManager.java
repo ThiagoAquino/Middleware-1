@@ -10,13 +10,12 @@ public class QueueManager {
 	private static QueueManager queueManager;
 	private String host;
 	private int port;
-	private float timeToLive;
 	Map <String,Queue> queues = new HashMap<String,Queue>();
 	Map <String, ArrayList<Socket>> subscribersQueue = new HashMap<String, ArrayList<Socket>>();
 	
 	public static QueueManager getInstance() {
         if (queueManager == null) {
-        	queueManager = new QueueManager("localhost",2121);
+        	queueManager = new QueueManager("localhost",9090);
         }
         return queueManager;
     }
@@ -59,24 +58,16 @@ public class QueueManager {
 	}
 	
 	public String listQueues(){
-		String queueString = "Lista de TÃ³picos disponÃ­veis\n";
+		String queueString = "Lista de Tópicos Disponíveis \n";
 		Set<String> keyset = queues.keySet();
 		if (keyset.size() == 0){
-			queueString = "Nenhum tÃ³pico disponÃ­vel\n";
+			queueString = "Nenhum tópico disponível\n";
 		}else{
-			queueString = "Lista de TÃ³picos disponÃ­veis\n";
+			queueString = "Lista de Tópicos disponíveis\n";
 			for (String key:keyset) {
 			    queueString = queueString + key + "\n";
 			}
 		}
 		return queueString;
-	}
-	
-	public void setTimeToLive(float timeToLive){
-		this.timeToLive = timeToLive;
-	}
-	
-	public float getTimeToLive(){
-		return this.timeToLive;
 	}
 }
