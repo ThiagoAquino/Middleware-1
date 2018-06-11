@@ -1,8 +1,8 @@
 package infrastructure;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientRequestHandler {
@@ -14,16 +14,16 @@ public class ClientRequestHandler {
 	private int receiveMessageSize;
 
 	private Socket connectionSocket;
-	private ObjectOutputStream outToServer;
-	private ObjectInputStream inFromServer;
+	private DataOutputStream outToServer;
+	private DataInputStream inFromServer;
 
 	public ClientRequestHandler(String host, int port, boolean expectedReply) throws IOException {
 		this.host = host;
 		this.port = port;
 		this.expectedReply = expectedReply;
 		this.connectionSocket = new Socket(host,port);
-		this.outToServer = new ObjectOutputStream(this.connectionSocket.getOutputStream());
-		this.inFromServer = new ObjectInputStream(this.connectionSocket.getInputStream());
+		this.outToServer = new DataOutputStream(this.connectionSocket.getOutputStream());
+		this.inFromServer = new DataInputStream(this.connectionSocket.getInputStream());
 
 	}
 
@@ -34,9 +34,9 @@ public class ClientRequestHandler {
 		outToServer.flush();
 	}
 
-	public byte [] receive () throws IOException, InterruptedException {
+	public byte [] receive () throws IOException, InterruptedException, ClassNotFoundException {
 		byte [] message = null;
-
+		
 		receiveMessageSize = inFromServer.readInt();
 		message = new byte[receiveMessageSize];
 		inFromServer.read(message,0,receiveMessageSize);

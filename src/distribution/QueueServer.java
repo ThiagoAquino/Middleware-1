@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import application.Server;
 import infrastructure.ServerRequestHandler;
 
 public class QueueServer { 
@@ -114,7 +115,7 @@ public class QueueServer {
 		PacketHeader packetHeader = new PacketHeader(type);
 		PacketBody packetBody = new PacketBody(message);
 		Packet packet = new Packet(packetHeader,packetBody);
-		//Server.getSRH().send(marshaller.marshall(packet));
+		Server.getSRH().send(marshaller.marshall(packet));
 	}
 
 	private void broadcastMessageToAllSubscribers(String topicName) {
@@ -127,7 +128,7 @@ public class QueueServer {
 
 		System.out.println("connections attached to topic " + connections.size());
 		for (int i=0; i < connections.size(); i++) {
-			//Server.getSRH().setSocket(connections.get(i));
+			Server.getSRH().setConnectionSocket(connections.get(i));
 
 			for(int j=0; j < messageQueue.queueSize(); j++) {
 				try {

@@ -14,12 +14,12 @@ public class Client implements Iapp{
 	private String userAddress;
 	private int userPort;
 	private ArrayList<ThreadSubscriber> subscriberThreads;
-	
+
 	public Client() throws UnknownHostException{
 		userAddress = InetAddress.getLocalHost().getHostAddress();
 		this.subscriberThreads = new ArrayList<ThreadSubscriber>();
 	}
-	
+
 	public String getUserAddress() {
 		return userAddress;
 	}
@@ -52,19 +52,17 @@ public class Client implements Iapp{
 			ThreadSubscriber thread = new ThreadSubscriber(topicName);
 			this.subscriberThreads.add(thread);
 			thread.start();
-			
+
 		}catch(Exception e){
 			System.out.println("Something went wrong :T");
 		}
 	}
 	public void listTopics() {
 		try{
-			System.out.println("eeeeeeeee");
-
-			QueueManagerProxy proxy = new QueueManagerProxy(null);
+			QueueManagerProxy proxy = new QueueManagerProxy("");
 			proxy.send("listAll", null);
 			System.out.println(proxy.receive());
-			
+
 		}catch(Exception e){
 			System.out.println(e);
 			System.out.println("Something went wrong :T");
@@ -73,9 +71,8 @@ public class Client implements Iapp{
 	@Override
 	public void unsubscribeTopic(String topicName) {
 		try {
-			System.out.println("Chegou!");
 			boolean isSubscribed = false;
-			
+
 			for (int i = 0; i < this.subscriberThreads.size(); i++) {
 				if (this.subscriberThreads.get(i).getTopicName().equals(topicName)) {
 					isSubscribed = true;
@@ -83,7 +80,7 @@ public class Client implements Iapp{
 					//System.out.println(this.subscriberThreads.get(i).getUnsubscribedMessage());
 				}
 			}
-			
+
 			if (!isSubscribed) {
 				System.out.println("User is not subscribed to Topic!");
 			}
@@ -91,7 +88,7 @@ public class Client implements Iapp{
 			System.out.println("Something went wrong :T");
 		}
 	}
-	
+
 	public static void main(String [] args) throws UnknownHostException, IOException{
 		Client user = null;
 		try {
@@ -105,27 +102,27 @@ public class Client implements Iapp{
 		String userChoice;
 		int index;
 		String functionName = "";
-		String userHintString = "Welcome to FIMM Middleware!\n"
-								+ "Here are some functions you can invoke:\n"
-								+ "-h : Shows help intructions\n"
-								+ "-q : Quit application\n"
-								+ "publishTopic(topicName,content) : publishes topic\n"
-								+ "subscribeTopic(topicName) : subscribes to topic\n"
-								+ "unsubscribeTopic(TopicName) : unsubscribes to topic\n"
-								+ "listTopics() : lists topics available\n";
-								
-								
-		System.out.println(userHintString);
+		String userHintString = "Welcome to MOM Middleware!\n"
+				+ "Here are some functions you can invoke:\n"
+				+ "h : Shows help intructions\n"
+				+ "q : Quit application\n"
+				+ "publishTopic(topicName,content) : publishes topic\n"
+				+ "subscribeTopic(topicName) : subscribes to topic\n"
+				+ "unsubscribeTopic(TopicName) : unsubscribes to topic\n"
+				+ "listTopics() : lists topics available\n";
+
+
 		while(shouldContinue){
+			System.out.println(userHintString);
 			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
 			index = userChoice.indexOf("(");
 			if(index != -1){
 				functionName = userChoice.substring(0, index);
 			} 
-			if (userChoice.equals("-h")){
+			if (userChoice.equals("h")){
 				System.out.println(userHintString);
-			}else if (userChoice.equals("-q")){
+			}else if (userChoice.equals("q")){
 				System.out.println("See you!");
 				shouldContinue = false;
 			}else if (functionName.equals("publishTopic")){
@@ -139,7 +136,7 @@ public class Client implements Iapp{
 			}else{
 				System.out.println("We didn't really catch that :T");
 			}
-			
+
 		}
 	}
 	private static void handleSubscribeTopic(Client user, String userChoice) {
@@ -152,7 +149,7 @@ public class Client implements Iapp{
 			System.out.println("We didn't really catch that :T");
 		}
 	}
-	
+
 	private static void handleUnsusbcribeTopic(Client user, String userChoice) {
 		String topicName;
 		String [] parts = userChoice.split("[\\(\\)]");
@@ -163,7 +160,7 @@ public class Client implements Iapp{
 			System.out.println("We didn't really catch that :T");
 		}
 	}
-	
+
 	private static void handlePublishTopic(Client user, String userChoice) throws UnknownHostException, IOException {
 		String topicName;
 		String content;
@@ -172,12 +169,11 @@ public class Client implements Iapp{
 			topicName = parts[1];
 			content = parts[2];
 			user.publishTopic(topicName, content);
-			
+
 		}else{
 			System.out.println("We didn't really catch that :T");
-			System.out.println("ereri");
 		}
 	}
-	
+
 
 }

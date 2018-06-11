@@ -20,7 +20,7 @@ public class Encryption implements Serializable  {
 			}
 		}
 		Packet retorno = in;
-		retorno.getBody().getMessage().getBody().setContent(message);
+		retorno.getBody().getMessage().getBody().setContent(aux1);
 		return retorno;
 	}
 
@@ -37,7 +37,7 @@ public class Encryption implements Serializable  {
 			}
 		}
 		Packet retorno = in;
-		retorno.getBody().getMessage().getBody().setContent(message);
+		retorno.getBody().getMessage().getBody().setContent(aux1);
 		return retorno;
 	}
 }

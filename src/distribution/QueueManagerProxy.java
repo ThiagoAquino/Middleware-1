@@ -18,10 +18,12 @@ public class QueueManagerProxy {
 	public void send(String function,Map<String,String> parameters) throws UnknownHostException, IOException, InterruptedException {
 		Marshaller marshaller = new Marshaller();
 		MessageHeader messageHeader = new MessageHeader(queueName);
-		String content = null;
+		String content = "content";
+		
 		if (parameters!=null){
 			content = parameters.get("content");
 		}
+		
 		MessageBody messageBody = new MessageBody(content);
 		Message message = new Message(messageHeader, messageBody);
 		PacketType packetType = getPacketType(function);
