@@ -10,7 +10,6 @@ public class ThreadSubscriber extends Thread{
 	private QueueManagerProxy proxy;
 	private boolean shouldContinue = true;
 	private boolean isSubscribed;
-	//private String unsusbcribedMessage;
 
 	public ThreadSubscriber(String topicName) throws UnknownHostException, IOException, InterruptedException {
 		this.topicName = topicName;
@@ -27,9 +26,6 @@ public class ThreadSubscriber extends Thread{
 		this.isSubscribed = b;
 	}
 	
-//	public String getUnsubscribedMessage() {
-//		return this.unsusbcribedMessage;
-//	}
 
 	public void run() {
 		String response;

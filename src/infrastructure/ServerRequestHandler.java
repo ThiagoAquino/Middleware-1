@@ -28,14 +28,12 @@ public class ServerRequestHandler {
 	}
 
 	public void send(final byte[] message) throws IOException {
-		//outToClient = new AppendingObjectOutputStream(connectionSocket.getOutputStream());
-		//inFromClient = new AppendingObjectInputStream(connectionSocket.getInputStream());
-		//System.out.println(out);
+	
 		inFromClient = new DataInputStream(connectionSocket.getInputStream());
 		outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		outToClient.writeInt(message.length);
 		outToClient.write(message, 0, message.length);
-		//outToClient.flush();
+		outToClient.flush();
 
 	}
 
