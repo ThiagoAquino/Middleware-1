@@ -26,15 +26,15 @@ public class Server {
 			choice = in.nextLine();
 			if (choice.equals("h")){
 				System.out.println(serverHintString);
-			}else if (choice.equals("q")){
+			} else if (choice.equals("q")){
 				killServer();
-			}else if (choice.startsWith("s")){
+			} else if (choice.startsWith("s")){
 				startServerThreadOrErrorMessage(choice);
-			}else{
-				System.out.println("We didn't really catch that :T");
+			} else {
+				System.out.println("Wrong case in Server Main");
 			}
 		}
-
+		in.close();
 	}
 
 	private static void startServerThreadOrErrorMessage(String choice) {
@@ -45,7 +45,7 @@ public class Server {
 				System.out.println("Server is already UP!");
 			}	
 		} else{
-			System.out.println("We didn't really catch that :T");
+			System.out.println("Wrong case in startServerThreadOrErrorMessage");
 		}
 	}
 
@@ -55,9 +55,9 @@ public class Server {
 				try {
 					startServer();
 				} catch (ClassNotFoundException e) {
-					System.out.println("Something went wrong :T");
+					System.out.println("Something went wrong");
 				} catch (IOException e) {
-					System.out.println("Something went wrong :T");
+					System.out.println("Something went wrong");
 				}
 			}
 		}.start();

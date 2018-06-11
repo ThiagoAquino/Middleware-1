@@ -42,7 +42,7 @@ public class Client implements Iapp{
 			proxy.send("publish",parameters);
 			System.out.println(proxy.receive());
 		}catch(Exception e){
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong case in publishTopic");
 		}
 	}
 	@Override
@@ -54,18 +54,18 @@ public class Client implements Iapp{
 			thread.start();
 
 		}catch(Exception e){
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong Case in subscribeTopic");
 		}
 	}
 	public void listTopics() {
 		try{
-			QueueManagerProxy proxy = new QueueManagerProxy("");
+			QueueManagerProxy proxy = new QueueManagerProxy(null);
 			proxy.send("listAll", null);
 			System.out.println(proxy.receive());
 
 		}catch(Exception e){
 			System.out.println(e);
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong Case in listTopics()");
 		}
 	}
 	@Override
@@ -85,7 +85,7 @@ public class Client implements Iapp{
 				System.out.println("User is not subscribed to Topic!");
 			}
 		}catch (Exception e){
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong case in unsubscribeTopic()");
 		}
 	}
 
@@ -134,7 +134,7 @@ public class Client implements Iapp{
 			}else if (userChoice.equals("listTopics()")){
 				user.listTopics();			
 			}else{
-				System.out.println("We didn't really catch that :T");
+				System.out.println("Wrong case in Client Main");
 			}
 
 		}
@@ -146,7 +146,7 @@ public class Client implements Iapp{
 			topicName = parts[1];
 			user.subscribeTopic(topicName);
 		}else{
-			System.out.println("We didn't really catch that :T");
+			System.out.println("Wrong case in handleSubscribeTopic");
 		}
 	}
 
@@ -156,8 +156,8 @@ public class Client implements Iapp{
 		if (parts.length == 2 && parts[1].indexOf(',') == -1) {
 			topicName = parts[1];
 			user.unsubscribeTopic(topicName);
-		}else {
-			System.out.println("We didn't really catch that :T");
+		} else {
+			System.out.println("Wrong case in handleUnsusbcribeTopic");
 		}
 	}
 
@@ -171,7 +171,7 @@ public class Client implements Iapp{
 			user.publishTopic(topicName, content);
 
 		}else{
-			System.out.println("We didn't really catch that :T");
+			System.out.println("Wrong case in handlePublishTopic");
 		}
 	}
 
