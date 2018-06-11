@@ -9,7 +9,7 @@ import infrastructure.ClientRequestHandler;
 public class QueueManagerProxy {
 	private String queueName;
 	private ClientRequestHandler crh;
-	
+
 	public QueueManagerProxy(String queueName) throws UnknownHostException, IOException {
 		this.queueName = queueName;
 		crh = new ClientRequestHandler("127.0.0.1", 8080, false);
@@ -19,20 +19,20 @@ public class QueueManagerProxy {
 		Marshaller marshaller = new Marshaller();
 		MessageHeader messageHeader = new MessageHeader(queueName);
 		String content = "content";
-		
-		if (parameters!=null){
+
+		if (parameters!=null) {
 			content = parameters.get("content");
 		}
-		
+
 		MessageBody messageBody = new MessageBody(content);
 		Message message = new Message(messageHeader, messageBody);
 		PacketType packetType = getPacketType(function);
 		PacketHeader packetHeader = new PacketHeader(packetType);
 		PacketBody packetBody = new PacketBody(message);
 		Packet packet = new Packet(packetHeader,packetBody);
-		
+
 		crh.send(marshaller.marshall(packet));
-		
+
 	}
 
 	public String receive() throws IOException, ClassNotFoundException, InterruptedException {
@@ -41,32 +41,32 @@ public class QueueManagerProxy {
 		Packet packet = marshaller.unmarshall(bytes);
 		PacketType packetType = packet.getHeader().getOperation();
 		Message message = packet.getBody().getMessage();
-		switch(packetType){
-			case PUBLISH:
-				return message.getBody().getContent();
-			case SUBSCRIBE:
-				return message.getBody().getContent();
-			case LISTALL:
-				return message.getBody().getContent();
-			case UNSUBSCRIBE:
-				return message.getBody().getContent();
-				
+		switch(packetType) {
+		case PUBLISH:
+			return message.getBody().getContent();
+		case SUBSCRIBE:
+			return message.getBody().getContent();
+		case LISTALL:
+			return message.getBody().getContent();
+		case UNSUBSCRIBE:
+			return message.getBody().getContent();
+
 		}
 		return null;
 	}
-	
-	private PacketType getPacketType(String type){
+
+	private PacketType getPacketType(String type) {
 		switch(type){
-			case "publish":
-				return PacketType.PUBLISH;
-			case "subscribe":
-				return PacketType.SUBSCRIBE;
-			case "listAll":
-				return PacketType.LISTALL;				
-			case "unsubscribe":
-				return PacketType.UNSUBSCRIBE;
-			default:
-				return PacketType.UNKNOWN;
+		case "publish":
+			return PacketType.PUBLISH;
+		case "subscribe":
+			return PacketType.SUBSCRIBE;
+		case "listAll":
+			return PacketType.LISTALL;				
+		case "unsubscribe":
+			return PacketType.UNSUBSCRIBE;
+		default:
+			return PacketType.UNKNOWN;
 		}
 	}
 

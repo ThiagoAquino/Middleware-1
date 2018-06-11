@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 import distribution.QueueManagerProxy;
 
-public class Client implements Iapp{
+public class Client implements Iapp {
 	private String userAddress;
 	private int userPort;
 	private ArrayList<ThreadSubscriber> subscriberThreads;
 
-	public Client() throws UnknownHostException{
+	public Client() throws UnknownHostException {
 		userAddress = InetAddress.getLocalHost().getHostAddress();
 		this.subscriberThreads = new ArrayList<ThreadSubscriber>();
 	}
@@ -33,7 +33,7 @@ public class Client implements Iapp{
 		this.userPort = userPort;
 	}
 	@Override
-	public void publishTopic(String topicName, String content){
+	public void publishTopic(String topicName, String content) {
 		try{
 			Map<String,String> parameters = new HashMap<String, String>();
 			parameters.put("content",content);
@@ -47,23 +47,23 @@ public class Client implements Iapp{
 	}
 	@Override
 	public void subscribeTopic(String topicName) {
-		try{
+		try {
 			//System.out.println("you subscribed to : " + topicName);
 			ThreadSubscriber thread = new ThreadSubscriber(topicName);
 			this.subscriberThreads.add(thread);
 			thread.start();
 
-		}catch(Exception e){
+		} catch(Exception e){
 			System.out.println("Wrong Case in subscribeTopic");
 		}
 	}
 	public void listTopics() {
-		try{
+		try {
 			QueueManagerProxy proxy = new QueueManagerProxy(null);
 			proxy.send("listAll", null);
 			System.out.println(proxy.receive());
 
-		}catch(Exception e){
+		} catch(Exception e) {
 			System.out.println(e);
 			System.out.println("Wrong Case in listTopics()");
 		}
@@ -84,13 +84,14 @@ public class Client implements Iapp{
 			if (!isSubscribed) {
 				System.out.println("User is not subscribed to Topic!");
 			}
-		}catch (Exception e){
+		} catch (Exception e){
 			System.out.println("Wrong case in unsubscribeTopic()");
 		}
 	}
 
 	public static void main(String [] args) throws UnknownHostException, IOException{
 		Client user = null;
+		
 		try {
 			user = new Client();
 			System.out.println(user.getUserAddress());
@@ -98,6 +99,7 @@ public class Client implements Iapp{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		boolean shouldContinue = true;
 		String userChoice;
 		int index;
@@ -111,41 +113,43 @@ public class Client implements Iapp{
 				+ "unsubscribeTopic(TopicName) : unsubscribes to topic\n"
 				+ "listTopics() : lists topics available\n";
 
-
-		while(shouldContinue){
+		while (shouldContinue) {
 			System.out.println(userHintString);
 			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
 			index = userChoice.indexOf("(");
-			if(index != -1){
+
+			if(index != -1) {
 				functionName = userChoice.substring(0, index);
 			} 
+
 			if (userChoice.equals("h")){
 				System.out.println(userHintString);
-			}else if (userChoice.equals("q")){
+			} else if (userChoice.equals("q")) {
 				System.out.println("See you!");
 				shouldContinue = false;
-			}else if (functionName.equals("publishTopic")){
+			} else if (functionName.equals("publishTopic")) {
 				handlePublishTopic(user, userChoice);
-			}else if (functionName.equals("subscribeTopic")){
+			} else if (functionName.equals("subscribeTopic")) {
 				handleSubscribeTopic(user, userChoice);	
-			}else if(functionName.equals("unsubscribeTopic")) {
+			} else if(functionName.equals("unsubscribeTopic")) {
 				handleUnsusbcribeTopic(user, userChoice);
-			}else if (userChoice.equals("listTopics()")){
+			} else if (userChoice.equals("listTopics()")) {
 				user.listTopics();			
-			}else{
+			} else {
 				System.out.println("Wrong case in Client Main");
 			}
-
+			in.close();
 		}
 	}
+	
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
 		String[] parts = userChoice.split("[\\(\\)]");
-		if(parts.length==2 &&  parts[1].indexOf(',')==-1){
+		if (parts.length==2 &&  parts[1].indexOf(',')==-1) {
 			topicName = parts[1];
 			user.subscribeTopic(topicName);
-		}else{
+		} else {
 			System.out.println("Wrong case in handleSubscribeTopic");
 		}
 	}
@@ -165,15 +169,14 @@ public class Client implements Iapp{
 		String topicName;
 		String content;
 		String[] parts = userChoice.split("[\\(,\\)]");
-		if(parts.length == 3) {
+		if (parts.length == 3) {
 			topicName = parts[1];
 			content = parts[2];
 			user.publishTopic(topicName, content);
 
-		}else{
+		} else {
 			System.out.println("Wrong case in handlePublishTopic");
 		}
 	}
-
 
 }

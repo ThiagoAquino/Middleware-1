@@ -14,7 +14,7 @@ public class Marshaller {
 
 		//Criptografando
 		Packet pckt = encry.encrypt(pkt);
-		
+
 		objectStream.writeObject(pckt);		
 		return byteStream.toByteArray();
 	}
@@ -22,10 +22,10 @@ public class Marshaller {
 	public Packet unmarshall(byte[] pkt) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream byteStream = new ByteArrayInputStream(pkt);
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
-		
+
 		//Descriptografando
 		Packet pckt = encry.decrypt((Packet) objectStream.readObject());
-		
+
 		return pckt;
 	}
 }

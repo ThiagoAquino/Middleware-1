@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Message implements Serializable{
 	private MessageHeader header;
 	private MessageBody body;
-	
+
 	public Message(MessageHeader header, MessageBody body) {
 		this.header = header;
 		this.body= body;
@@ -27,6 +27,6 @@ public class Message implements Serializable{
 	public void setBody(MessageBody body) {
 		this.body = body;
 	}
-	
-	
+
+
 }

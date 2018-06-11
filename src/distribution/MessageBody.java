@@ -16,5 +16,5 @@ public class MessageBody implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 }

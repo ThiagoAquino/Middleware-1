@@ -36,7 +36,7 @@ public class ClientRequestHandler {
 
 	public byte [] receive () throws IOException, InterruptedException, ClassNotFoundException {
 		byte [] message = null;
-		
+
 		receiveMessageSize = inFromServer.readInt();
 		message = new byte[receiveMessageSize];
 		inFromServer.read(message,0,receiveMessageSize);

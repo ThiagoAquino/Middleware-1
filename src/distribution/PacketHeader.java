@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PacketHeader implements Serializable{
 	private PacketType operation;
-	
+
 	public PacketHeader(PacketType packetType) {
 		this.operation = packetType;
 	}
@@ -16,5 +16,5 @@ public class PacketHeader implements Serializable{
 	public void setOperation(PacketType packetType) {
 		this.operation = packetType;
 	}
-	
+
 }
