@@ -1,6 +1,8 @@
-package distribution;
+package distribution.packet;
 
 import java.io.Serializable;
+
+import distribution.Message;
 
 public class PacketBody implements Serializable{
 	private Message message;

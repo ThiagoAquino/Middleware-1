@@ -1,4 +1,4 @@
-package distribution;
+package distribution.packet;
 
 import java.io.Serializable;
 

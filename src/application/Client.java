@@ -139,7 +139,6 @@ public class Client implements Iapp {
 			} else {
 				System.out.println("Wrong case in Client Main");
 			}
-			in.close();
 		}
 	}
 	

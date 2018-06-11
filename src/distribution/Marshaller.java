@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import distribution.packet.Packet;
+
 public class Marshaller {
 	static Encryption encry = new Encryption();
 	public byte[] marshall(Packet pkt) throws IOException {

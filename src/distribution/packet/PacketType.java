@@ -1,4 +1,4 @@
-package distribution;
+package distribution.packet;
 
 public enum PacketType {
 	PUBLISH,

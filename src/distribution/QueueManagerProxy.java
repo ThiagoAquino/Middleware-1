@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Map;
 
+import distribution.packet.Packet;
+import distribution.packet.PacketBody;
+import distribution.packet.PacketHeader;
+import distribution.packet.PacketType;
 import infrastructure.ClientRequestHandler;
 
 public class QueueManagerProxy {
