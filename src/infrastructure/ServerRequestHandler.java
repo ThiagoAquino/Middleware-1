@@ -20,7 +20,7 @@ public class ServerRequestHandler {
 
 	private AppendingObjectOutputStream out;
 	private AppendingObjectInputStream in;
-	
+
 	private ListenClient thread;
 
 	public ServerRequestHandler(final int port) throws IOException {
@@ -28,7 +28,7 @@ public class ServerRequestHandler {
 	}
 
 	public void send(final byte[] message) throws IOException {
-	
+
 		inFromClient = new DataInputStream(connectionSocket.getInputStream());
 		outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		outToClient.writeInt(message.length);
@@ -84,8 +84,6 @@ public class ServerRequestHandler {
 		return outToClient;
 	}
 
-
-	
 }
 
 class AppendingObjectOutputStream extends ObjectOutputStream {

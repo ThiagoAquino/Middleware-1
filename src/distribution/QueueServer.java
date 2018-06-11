@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import application.Server;
-import infrastructure.ServerRequestHandler;
 
 public class QueueServer { 
 
@@ -42,7 +41,7 @@ public class QueueServer {
 				//send message to all subscribers
 				this.broadcastMessageToAllSubscribers(destinationQueue);
 
-			}catch(Exception e){
+			} catch(Exception e) {
 				System.out.println(e.getMessage());
 				send(packetType, "Something went wrong!");	
 			}
@@ -59,7 +58,7 @@ public class QueueServer {
 					socketList.add(socket);
 					QueueManager.getInstance().subscribersQueue.put(destinationQueue, socketList);
 					this.broadcastMessageToAllSubscribers(destinationQueue);
-				}else {
+				} else {
 					System.out.println("Unavaliable Topic!");
 					send(packetType, "This topic is unavaliable.");
 				}
