@@ -12,7 +12,7 @@ public class QueueManagerProxy {
 	
 	public QueueManagerProxy(String queueName) throws UnknownHostException, IOException {
 		this.queueName = queueName;
-		crh = new ClientRequestHandler("localhost", 2121, false);
+		crh = new ClientRequestHandler("127.0.0.1", 8080, false);
 	}
 
 	public void send(String function,Map<String,String> parameters) throws UnknownHostException, IOException, InterruptedException {

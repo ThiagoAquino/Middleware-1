@@ -15,7 +15,7 @@ public class QueueManager {
 	
 	public static QueueManager getInstance() {
         if (queueManager == null) {
-        	queueManager = new QueueManager("localhost",9090);
+        	queueManager = new QueueManager("127.0.0.1", 8080);
         }
         return queueManager;
     }
