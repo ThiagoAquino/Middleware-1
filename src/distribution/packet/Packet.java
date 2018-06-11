@@ -28,5 +28,4 @@ public class Packet implements Serializable{
 		this.body = body;
 	}
 
-
 }

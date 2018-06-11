@@ -17,5 +17,6 @@ public class PacketBody implements Serializable{
 
 	public void setMessage(Message message) {
 		this.message = message;
-	}	
+	}
+	
 }

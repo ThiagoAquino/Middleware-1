@@ -91,7 +91,7 @@ public class Client implements Iapp {
 
 	public static void main(String [] args) throws UnknownHostException, IOException{
 		Client user = null;
-		
+
 		try {
 			user = new Client();
 			System.out.println(user.getUserAddress());
@@ -99,7 +99,7 @@ public class Client implements Iapp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		boolean shouldContinue = true;
 		String userChoice;
 		int index;
@@ -141,7 +141,7 @@ public class Client implements Iapp {
 			}
 		}
 	}
-	
+
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
 		String[] parts = userChoice.split("[\\(\\)]");
