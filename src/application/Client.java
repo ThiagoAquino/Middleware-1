@@ -32,6 +32,7 @@ public class Client implements Iapp {
 	public void setUserPort(int userPort) {
 		this.userPort = userPort;
 	}
+	
 	@Override
 	public void publishTopic(String topicName, String content) {
 		try{
@@ -112,9 +113,10 @@ public class Client implements Iapp {
 				+ "subscribeTopic(topicName) : subscribes to topic\n"
 				+ "unsubscribeTopic(TopicName) : unsubscribes to topic\n"
 				+ "listTopics() : lists topics available\n";
+		
+		System.out.println(userHintString);
 
 		while (shouldContinue) {
-			System.out.println(userHintString);
 			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
 			index = userChoice.indexOf("(");

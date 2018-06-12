@@ -21,8 +21,8 @@ public class Server {
 				+ "s : Start Server\n"
 				+ "h : Shows help intructions\n"
 				+ "q : Shutdown server\n";
+		System.out.println(serverHintString);
 		while(shouldContinue){
-			System.out.println(serverHintString);
 			choice = in.nextLine();
 			if (choice.equals("h")){
 				System.out.println(serverHintString);
@@ -79,7 +79,7 @@ public class Server {
 		if (serverIsUp){
 			shouldContinue = false;
 			serverIsUp = false;
-			srh.close();
+			srh.setServerSocket(null);
 
 			System.out.println("Shutting down the server!");
 		}else{

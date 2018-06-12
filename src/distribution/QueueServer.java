@@ -131,7 +131,7 @@ public class QueueServer {
 
 		System.out.println("connections attached to topic " + connections.size());
 		for (int i=0; i < connections.size(); i++) {
-			Server.getSRH().setConnectionSocket(connections.get(i));
+			Server.getSRH().setSocket(connections.get(i));
 
 			for(int j=0; j < messageQueue.queueSize(); j++) {
 				try {
