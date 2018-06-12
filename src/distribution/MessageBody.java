@@ -1,6 +1,8 @@
 package distribution;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MessageBody implements Serializable{
 	private String content;
@@ -16,5 +18,5 @@ public class MessageBody implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-
+	
 }

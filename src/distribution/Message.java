@@ -2,14 +2,15 @@ package distribution;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
 public class Message implements Serializable{
 	private MessageHeader header;
 	private MessageBody body;
-
-	public Message(MessageHeader header, MessageBody body) {
+	private long timeOfArrival;
+	
+	public Message(MessageHeader header, MessageBody body){
 		this.header = header;
-		this.body= body;
+		this.body = body;
+		this.timeOfArrival = 0;
 	}
 
 	public MessageHeader getHeader() {
@@ -27,6 +28,13 @@ public class Message implements Serializable{
 	public void setBody(MessageBody body) {
 		this.body = body;
 	}
-
-
+	
+	public long getTimeOfArrival(){
+		return this.timeOfArrival;
+	}
+	
+	public void setTimeOfArrival(long time){
+		this.timeOfArrival = time;
+	}
+	
 }
