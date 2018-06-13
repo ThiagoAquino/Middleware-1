@@ -12,40 +12,44 @@ public class Server {
 	private static boolean serverIsUp = false;
 	private static QueueServer queueServer;
 	private static ServerRequestHandler srh; 
-
 	public static void main(String [] args) throws IOException{
 		Scanner in = new Scanner(System.in);
 		String choice = "";
 		String serverHintString = "Welcome to MOM Middleware!\n"
 				+ "Here are some functions you can invoke:\n"
-				+ "s : Start Server\n"
-				+ "h : Shows help intructions\n"
+				+ "s : StartServer \n"
+				+ "h : Shows intructions\n"
 				+ "q : Shutdown server\n";
+		System.out.println(serverHintString);
 		while(shouldContinue){
-			System.out.println(serverHintString);
 			choice = in.nextLine();
 			if (choice.equals("h")){
 				System.out.println(serverHintString);
-			} else if (choice.equals("q")){
+			}else if (choice.equals("q")){
 				killServer();
-			} else if (choice.startsWith("s")){
+			}else if (choice.equals("s")){
 				startServerThreadOrErrorMessage(choice);
-			} else {
-				System.out.println("Wrong case in Server Main");
+			}else{
+				System.out.println("\"Wrong case in Server Main\"");
 			}
 		}
-		in.close();
+
 	}
 
 	private static void startServerThreadOrErrorMessage(String choice) {
-		if(choice.equals("s")){
-			if (!serverIsUp){
-				startServerThread();
-			}else{
-				System.out.println("Server is already UP!");
-			}	
-		} else{
-			System.out.println("Wrong case in startServerThreadOrErrorMessage");
+		String parts = choice;
+		if(parts.equals("s")){
+			try{
+				if (!serverIsUp){
+					startServerThread();
+				}else{
+					System.out.println("Server is already UP!");
+				}	
+			}catch (NumberFormatException nfe){
+				System.out.println("We didn't really catch that :T");	    
+			}
+		}else{
+			System.out.println("We didn't really catch that :T");
 		}
 	}
 
@@ -55,9 +59,9 @@ public class Server {
 				try {
 					startServer();
 				} catch (ClassNotFoundException e) {
-					System.out.println("Something went wrong");
+					System.out.println("Wrong case in startServerThreadOrErrorMessage");
 				} catch (IOException e) {
-					System.out.println("Something went wrong");
+					System.out.println("Wrong case in startServerThreadOrErrorMessage");
 				}
 			}
 		}.start();

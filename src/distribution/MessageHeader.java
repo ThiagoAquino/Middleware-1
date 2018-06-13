@@ -2,21 +2,20 @@ package distribution;
 
 import java.io.Serializable;
 
-public class MessageHeader implements Serializable {
-	private String destination;
+public class MessageHeader implements Serializable{
+	private String destinationQueue;
 
-	public MessageHeader(String destination) {
-		this.destination = destination;
+	public MessageHeader(String destinationQueue) {
+		this.destinationQueue = destinationQueue;
 	}
 
-	public String getDestination() {
-		return destination;
+	public String getDestinationQueue() {
+		return destinationQueue;
 	}
 
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setDestinationQueue(String destinationQueue) {
+		this.destinationQueue = destinationQueue;
 	}
-
-
+	
+	
 }
-

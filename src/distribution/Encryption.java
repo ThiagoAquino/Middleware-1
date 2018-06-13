@@ -2,9 +2,7 @@ package distribution;
 
 import java.io.Serializable;
 import java.security.Key;
-import java.util.Base64;
 
-import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import distribution.packet.Packet;

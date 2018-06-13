@@ -1,7 +1,7 @@
 package distribution;
 
-import java.net.Socket;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -19,9 +19,9 @@ public class QueueServer {
 
 		Marshaller marshaller = new Marshaller();
 		Packet packet = marshaller.unmarshall(bytes);
-		PacketType packetType = packet.getHeader().getOperation();
+		PacketType packetType = packet.getHeader().getType();
 		Message message = packet.getBody().getMessage();
-		String destinationQueue = message.getHeader().getDestination();
+		String destinationQueue = message.getHeader().getDestinationQueue();
 		QueueManager queueManager = QueueManager.getInstance();
 		Map<String, Queue> queuesHM = queueManager.getQueues();
 
@@ -45,7 +45,7 @@ public class QueueServer {
 				//send message to all subscribers
 				this.broadcastMessageToAllSubscribers(destinationQueue);
 
-			} catch(Exception e) {
+			}catch(Exception e){
 				System.out.println(e.getMessage());
 				send(packetType, "Something went wrong!");	
 			}
@@ -62,7 +62,7 @@ public class QueueServer {
 					socketList.add(socket);
 					QueueManager.getInstance().subscribersQueue.put(destinationQueue, socketList);
 					this.broadcastMessageToAllSubscribers(destinationQueue);
-				} else {
+				}else {
 					System.out.println("Unavaliable Topic!");
 					send(packetType, "This topic is unavaliable.");
 				}
@@ -104,6 +104,7 @@ public class QueueServer {
 			break;
 
 		}
+
 
 
 		return "";
@@ -149,14 +150,25 @@ public class QueueServer {
 			}
 		}
 
-		sentMessage();
 	}
 
+	public void sentMessageThread(){
+		new Thread(){
+			public void run(){
+				try {
+					while(Server.getShouldContinue()){
+						sleep(1000);
+						sentMessage();
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
 
-	/** Depois que chama o broadcast, que envia a mensagem para todos os inscritos, remove a mensagem
-	 * da fila, quem entrar depois não recebe mais a última mensagem enviada **/
 	public void sentMessage(){
-		Map<String, Queue> mapQueue = QueueManager.getInstance().getQueues();		
+		Map<String, Queue> mapQueue = QueueManager.getInstance().getQueues();
 		Set<String> keys = mapQueue.keySet();
 		for (String chave : keys) {
 			ArrayList<Message> queue = mapQueue.get(chave).getQueue();
@@ -167,4 +179,3 @@ public class QueueServer {
 		}
 	}
 }
-

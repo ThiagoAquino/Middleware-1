@@ -18,8 +18,6 @@ public class ServerRequestHandler {
 	private DataOutputStream outToClient;
 	private DataInputStream inFromClient;
 
-	private AppendingObjectOutputStream out;
-	private AppendingObjectInputStream in;
 
 	private ListenClient thread;
 
@@ -82,34 +80,6 @@ public class ServerRequestHandler {
 
 	public DataOutputStream getOutToClient() {
 		return outToClient;
-	}
-
-}
-
-class AppendingObjectOutputStream extends ObjectOutputStream {
-
-	public AppendingObjectOutputStream(OutputStream out) throws IOException {
-		super(out);
-	}
-
-	@Override
-	protected void writeStreamHeader() throws IOException {
-		// do not write a header, but reset:
-		// this line added after another question
-		// showed a problem with the original
-		reset();
-	}
-
-}
-
-
-class AppendingObjectInputStream extends ObjectInputStream {
-
-	public AppendingObjectInputStream(InputStream in) throws IOException {
-		super(in);
-	}
-
-	protected void ReadStreamHeader() throws IOException {
 	}
 
 }
