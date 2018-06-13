@@ -110,23 +110,20 @@ public class Client implements Iapp {
 				+ "listTopics() : lists topics available\n";
 
 		System.out.println(userHintString);
+		Scanner in = new Scanner(System.in);
+
 		while(shouldContinue) {
-			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
-			index = userChoice.indexOf(" ");
-			if(index != -1) {
-				functionName = userChoice.substring(0, index);
-			} 
 			if (userChoice.equals("h")) {
 				System.out.println(userHintString);
 			} else if (userChoice.equals("q")) {
 				System.out.println("See you!");
 				shouldContinue = false;
-			} else if (functionName.startsWith("publishTopic")) {
+			} else if (userChoice.startsWith("publishTopic")) {
 				handlePublishTopic(user, userChoice);
-			} else if (functionName.startsWith("subscribeTopic")) {
+			} else if (userChoice.startsWith("subscribeTopic")) {
 				handleSubscribeTopic(user, userChoice);	
-			} else if(functionName.startsWith("unsubscribeTopic")) {
+			} else if(userChoice.startsWith("unsubscribeTopic")) {
 				handleUnsusbcribeTopic(user, userChoice);
 			} else if (userChoice.startsWith("listTopics")) {
 				user.listTopics();			
@@ -142,7 +139,7 @@ public class Client implements Iapp {
 		String[] parts = userChoice.split(" ");
 		topicName = parts[1];
 		user.subscribeTopic(topicName);
-		System.out.println("Subscribed to topic " + topicName);
+		//System.out.println("Subscribed to topic " + topicName);
 	}
 
 	private static void handleUnsusbcribeTopic(Client user, String userChoice) {
@@ -150,7 +147,7 @@ public class Client implements Iapp {
 		String [] parts = userChoice.split(" ");
 		topicName = parts[1];
 		user.unsubscribeTopic(topicName);
-		System.out.println("Unsubscribed to topic " + topicName);
+		//System.out.println("Unsubscribed to topic " + topicName);
 	}
 
 	private static void handlePublishTopic(Client user, String userChoice) throws UnknownHostException, IOException {
@@ -161,6 +158,7 @@ public class Client implements Iapp {
 		topicName = parts[1];
 		content = parts[2];
 		user.publishTopic(topicName, content);
+		//System.out.println("Published to topic " + topicName);
 
 	}
 
