@@ -44,8 +44,8 @@ public class Client implements Iapp {
 		}
 		String userHintString = "Welcome to MOM Middleware!\n"
 				+ "Here are some functions you can invoke:\n"
-				+ "h : Shows intructions\n"
-				+ "q : Quit application\n"
+				+ "help : Shows intructions\n"
+				+ "quit : Quit application\n"
 				+ "publishTopic topicName content  : publishes topic\n"
 				+ "subscribeTopic topicName  : subscribes to topic\n"
 				+ "unsubscribeTopic TopicName : unsubscribes to topic\n"
@@ -57,9 +57,9 @@ public class Client implements Iapp {
 		boolean shouldContinue = true;
 		while(shouldContinue) {
 			String userChoice = in.nextLine();
-			if (userChoice.equals("h")) {
+			if (userChoice.equals("help")) {
 				System.out.println(userHintString);
-			} else if (userChoice.equals("q")) {
+			} else if (userChoice.equals("quit")) {
 				System.out.println("See you!");
 				shouldContinue = false;
 			} else if (userChoice.startsWith("publishTopic")) {
