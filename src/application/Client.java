@@ -113,7 +113,7 @@ public class Client implements Iapp {
 		while(shouldContinue) {
 			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
-			index = userChoice.indexOf("(");
+			index = userChoice.indexOf(" ");
 			if(index != -1) {
 				functionName = userChoice.substring(0, index);
 			} 
@@ -122,13 +122,13 @@ public class Client implements Iapp {
 			} else if (userChoice.equals("q")) {
 				System.out.println("See you!");
 				shouldContinue = false;
-			} else if (functionName.equals("publishTopic")) {
+			} else if (functionName.startsWith("publishTopic")) {
 				handlePublishTopic(user, userChoice);
-			} else if (functionName.equals("subscribeTopic")) {
+			} else if (functionName.startsWith("subscribeTopic")) {
 				handleSubscribeTopic(user, userChoice);	
-			} else if(functionName.equals("unsubscribeTopic")) {
+			} else if(functionName.startsWith("unsubscribeTopic")) {
 				handleUnsusbcribeTopic(user, userChoice);
-			} else if (userChoice.equals("listTopics()")) {
+			} else if (userChoice.startsWith("listTopics")) {
 				user.listTopics();			
 			} else {
 				System.out.println("We didn't really catch that");
@@ -139,38 +139,29 @@ public class Client implements Iapp {
 	
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
-		String[] parts = userChoice.split("[\\(\\)]");
-		if(parts.length==2 &&  parts[1].indexOf(',')==-1) {
-			topicName = parts[1];
-			user.subscribeTopic(topicName);
-		} else {
-			System.out.println("Wrong case in Client handleSubscribeTopic");
-		}
+		String[] parts = userChoice.split(" ");
+		topicName = parts[1];
+		user.subscribeTopic(topicName);
+		System.out.println("Subscribed to topic " + topicName);
 	}
 
 	private static void handleUnsusbcribeTopic(Client user, String userChoice) {
 		String topicName;
-		String [] parts = userChoice.split("[\\(\\)]");
-		if (parts.length == 2 && parts[1].indexOf(',') == -1) {
-			topicName = parts[1];
-			user.unsubscribeTopic(topicName);
-		}else {
-			System.out.println("Wrong case in Client handleUnsusbcribeTopic");
-		}
+		String [] parts = userChoice.split(" ");
+		topicName = parts[1];
+		user.unsubscribeTopic(topicName);
+		System.out.println("Unsubscribed to topic " + topicName);
 	}
 
 	private static void handlePublishTopic(Client user, String userChoice) throws UnknownHostException, IOException {
 		String topicName;
 		String content;
-		String[] parts = userChoice.split("[\\(,\\)]");
-		if(parts.length == 3) {
-			topicName = parts[1];
-			content = parts[2];
-			user.publishTopic(topicName, content);
+		String[] parts = userChoice.split(" ");
+		
+		topicName = parts[1];
+		content = parts[2];
+		user.publishTopic(topicName, content);
 
-		} else {
-			System.out.println("Wrong case in Client handlePublishTopic");
-		}
 	}
 
 }
