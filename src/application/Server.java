@@ -12,23 +12,24 @@ public class Server {
 	private static boolean serverIsUp = false;
 	private static QueueServer queueServer;
 	private static ServerRequestHandler srh; 
+	
 	public static void main(String [] args) throws IOException{
-		Scanner in = new Scanner(System.in);
 		String choice = "";
 		String serverHintString = "Welcome to MOM Middleware!\n"
 				+ "Here are some functions you can invoke:\n"
-				+ "s : StartServer \n"
-				+ "h : Shows intructions\n"
-				+ "q : Shutdown server\n";
+				+ "startServer : Start the Server \n"
+				+ "help : Shows intructions\n"
+				+ "quit : Shutdown server\n";
 		System.out.println(serverHintString);
 		
+		Scanner in = new Scanner(System.in);
 		while(shouldContinue){
 			choice = in.nextLine();
-			if (choice.equals("h")){
+			if (choice.equals("help")){
 				System.out.println(serverHintString);
-			} else if (choice.equals("q")){
+			} else if (choice.equals("quit")){
 				killServer();
-			} else if (choice.equals("s")){
+			} else if (choice.equals("startServer")){
 				startServerThreadOrErrorMessage(choice);
 			} else {
 				System.out.println("\"Wrong case in Server Main\"");
@@ -38,8 +39,7 @@ public class Server {
 	}
 
 	private static void startServerThreadOrErrorMessage(String choice) {
-		String parts = choice;
-		if(parts.equals("s")) {
+		if(choice.equals("startServer")) {
 			try {
 				if (!serverIsUp) {
 					startServerThread();
