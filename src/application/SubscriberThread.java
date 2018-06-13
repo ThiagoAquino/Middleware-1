@@ -18,23 +18,23 @@ public class SubscriberThread extends Thread{
 		proxy = new QueueManagerProxy(topicName);
 		proxy.send("subscribe", null);
 	}
-	
+
 	public String getTopicName() {
 		return this.topicName;
 	}
-	
+
 	public synchronized void setIsSubscribed(boolean b) {
 		this.isSubscribed = b;
 	}
-	
-//	public String getUnsubscribedMessage() {
-//		return this.unsusbcribedMessage;
-//	}
+
+	//	public String getUnsubscribedMessage() {
+	//		return this.unsusbcribedMessage;
+	//	}
 
 	public void run() {
 		String response;
 		while(shouldContinue && this.isSubscribed){
-			
+
 			try {
 				this.sleep(1000);
 				if((response = proxy.receive()) != null){
@@ -43,7 +43,7 @@ public class SubscriberThread extends Thread{
 						break;
 					}
 					System.out.println(response);
-					
+
 				}
 			} catch (ClassNotFoundException e) {
 				shouldContinue = false;
@@ -52,7 +52,7 @@ public class SubscriberThread extends Thread{
 			} catch (InterruptedException e) {
 				shouldContinue = false;
 			}
-			
+
 			if (!this.isSubscribed) {
 				try {
 					this.proxy.send("unsubscribe", null);
@@ -60,17 +60,17 @@ public class SubscriberThread extends Thread{
 					if (!receivedMessage.equals("Unsubscribed Topic!")) {
 						this.isSubscribed = true;
 					}
-					
+
 					System.out.println(receivedMessage);
-					
+
 				}catch(Exception e) {
-					
+
 				}
-				
+
 			}
 		}
-		
-		
+
+
 	}
-	
+
 }

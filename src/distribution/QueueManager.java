@@ -13,14 +13,14 @@ public class QueueManager {
 	private final float timeToLive = 1;
 	Map <String,Queue> queues = new HashMap<String,Queue>();
 	Map <String, ArrayList<Socket>> subscribersQueue = new HashMap<String, ArrayList<Socket>>();
-	
+
 	public static QueueManager getInstance() {
-        if (queueManager == null) {
-        	queueManager = new QueueManager("localhost", 8080);
-        }
-        return queueManager;
-    }
-	
+		if (queueManager == null) {
+			queueManager = new QueueManager("localhost", 8080);
+		}
+		return queueManager;
+	}
+
 	public QueueManager(String host, int port) {
 		this.host = host;
 		this.port = port;
@@ -49,7 +49,7 @@ public class QueueManager {
 	public void setQueues(Map<String, Queue> queues) {
 		this.queues = queues;
 	}
-	
+
 	public Map<String, ArrayList<Socket>> getSubscribersQueue() {
 		return this.subscribersQueue;
 	}
@@ -57,7 +57,7 @@ public class QueueManager {
 	public void setSubscribersQueue(Map<String, ArrayList<Socket>> subscribersQueues) {
 		this.subscribersQueue = subscribersQueues;
 	}
-	
+
 	public String listQueues(){
 		String queueString = "Lista de tópicos disponiveis \n";
 		Set<String> keyset = queues.keySet();
@@ -66,10 +66,10 @@ public class QueueManager {
 		}else{
 			queueString = "Lista de tópicos disponiveis\n";
 			for (String key:keyset) {
-			    queueString = queueString + key + "\n";
+				queueString = queueString + key + "\n";
 			}
 		}
 		return queueString;
 	}
-	
+
 }
