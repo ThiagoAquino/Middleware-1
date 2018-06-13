@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PacketHeader implements Serializable{
 	private PacketType type;
-	
+
 	public PacketHeader(PacketType type) {
 		this.type = type;
 	}
@@ -16,5 +16,5 @@ public class PacketHeader implements Serializable{
 	public void setType(PacketType type) {
 		this.type = type;
 	}
-	
+
 }

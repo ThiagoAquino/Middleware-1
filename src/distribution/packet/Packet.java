@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Packet implements Serializable{
 	private PacketHeader header;
 	private PacketBody body;
-	
+
 	public Packet(PacketHeader header, PacketBody body){
 		this.header = header;
 		this.body = body;
-		
+
 	}
 
 	public PacketHeader getHeader() {
@@ -27,6 +27,5 @@ public class Packet implements Serializable{
 	public void setBody(PacketBody body) {
 		this.body = body;
 	}
-	
-	
+
 }

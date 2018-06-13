@@ -21,15 +21,16 @@ public class Server {
 				+ "h : Shows intructions\n"
 				+ "q : Shutdown server\n";
 		System.out.println(serverHintString);
+		
 		while(shouldContinue){
 			choice = in.nextLine();
 			if (choice.equals("h")){
 				System.out.println(serverHintString);
-			}else if (choice.equals("q")){
+			} else if (choice.equals("q")){
 				killServer();
-			}else if (choice.equals("s")){
+			} else if (choice.equals("s")){
 				startServerThreadOrErrorMessage(choice);
-			}else{
+			} else {
 				System.out.println("\"Wrong case in Server Main\"");
 			}
 		}
@@ -38,18 +39,18 @@ public class Server {
 
 	private static void startServerThreadOrErrorMessage(String choice) {
 		String parts = choice;
-		if(parts.equals("s")){
-			try{
-				if (!serverIsUp){
+		if(parts.equals("s")) {
+			try {
+				if (!serverIsUp) {
 					startServerThread();
-				}else{
+				} else {
 					System.out.println("Server is already UP!");
 				}	
-			}catch (NumberFormatException nfe){
-				System.out.println("We didn't really catch that :T");	    
+			} catch (NumberFormatException nfe){
+				System.out.println("We didn't really catch that");	    
 			}
-		}else{
-			System.out.println("We didn't really catch that :T");
+		} else {
+			System.out.println("We didn't really catch that");
 		}
 	}
 
@@ -75,18 +76,17 @@ public class Server {
 		serverIsUp = true;
 		while(shouldContinue){
 			srh.receive();
-
 		}
 	}
 
 	public static void killServer() throws IOException{
-		if (serverIsUp){
+		if (serverIsUp) {
 			shouldContinue = false;
 			serverIsUp = false;
 			srh.close();
 
 			System.out.println("Shutting down the server!");
-		}else{
+		} else {
 			System.out.println("Server is not UP");
 		}
 	}
@@ -106,6 +106,5 @@ public class Server {
 	public static void setQueueServer(QueueServer queueServer) {
 		Server.queueServer = queueServer;
 	}
-
 
 }

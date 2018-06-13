@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 import distribution.QueueManagerProxy;
 
-public class Client implements Iapp{
+public class Client implements Iapp {
+	
 	private String userAddress;
 	private int userPort;
 	private ArrayList<SubscriberThread> subscriberThreads;
@@ -40,8 +41,8 @@ public class Client implements Iapp{
 			QueueManagerProxy proxy = new QueueManagerProxy(topicName);
 			proxy.send("publish",parameters);
 			System.out.println(proxy.receive());
-		}catch(Exception e){
-			System.out.println("Something went wrong :T");
+		} catch(Exception e) {
+			System.out.println("Wrong case in Client publishTopic");
 		}
 	}
 	@Override
@@ -52,7 +53,7 @@ public class Client implements Iapp{
 			thread.start();
 
 		}catch(Exception e){
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong case in Client subscribeTopic");
 		}
 	}
 	public void listTopics() {
@@ -62,7 +63,7 @@ public class Client implements Iapp{
 			System.out.println(proxy.receive());
 
 		}catch(Exception e){
-			System.out.println("Something went wrong :T");
+			System.out.println("Wrong case in Client listTopics");
 
 		}
 	}
@@ -82,8 +83,8 @@ public class Client implements Iapp{
 			if (!isSubscribed) {
 				System.out.println("User is not subscribed to Topic!");
 			}
-		}catch (Exception e){
-			System.out.println("Something went wrong :T");
+		} catch (Exception e) {
+			System.out.println("Wrong case in Client unsubscribeTopic");
 		}
 	}
 
@@ -108,42 +109,42 @@ public class Client implements Iapp{
 				+ "unsubscribeTopic(TopicName) : unsubscribes to topic\n"
 				+ "listTopics() : lists topics available\n";
 
-
 		System.out.println(userHintString);
-		while(shouldContinue){
+		while(shouldContinue) {
 			Scanner in = new Scanner(System.in);
 			userChoice = in.nextLine();
 			index = userChoice.indexOf("(");
-			if(index != -1){
+			if(index != -1) {
 				functionName = userChoice.substring(0, index);
 			} 
-			if (userChoice.equals("h")){
+			if (userChoice.equals("h")) {
 				System.out.println(userHintString);
-			}else if (userChoice.equals("q")){
+			} else if (userChoice.equals("q")) {
 				System.out.println("See you!");
 				shouldContinue = false;
-			}else if (functionName.equals("publishTopic")){
+			} else if (functionName.equals("publishTopic")) {
 				handlePublishTopic(user, userChoice);
-			}else if (functionName.equals("subscribeTopic")){
+			} else if (functionName.equals("subscribeTopic")) {
 				handleSubscribeTopic(user, userChoice);	
-			}else if(functionName.equals("unsubscribeTopic")) {
+			} else if(functionName.equals("unsubscribeTopic")) {
 				handleUnsusbcribeTopic(user, userChoice);
-			}else if (userChoice.equals("listTopics()")){
+			} else if (userChoice.equals("listTopics()")) {
 				user.listTopics();			
-			}else{
-				System.out.println("We didn't really catch that :T");
+			} else {
+				System.out.println("We didn't really catch that");
 			}
 
 		}
 	}
+	
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
 		String[] parts = userChoice.split("[\\(\\)]");
-		if(parts.length==2 &&  parts[1].indexOf(',')==-1){
+		if(parts.length==2 &&  parts[1].indexOf(',')==-1) {
 			topicName = parts[1];
 			user.subscribeTopic(topicName);
-		}else{
-			System.out.println("We didn't really catch that :T");
+		} else {
+			System.out.println("Wrong case in Client handleSubscribeTopic");
 		}
 	}
 
@@ -154,7 +155,7 @@ public class Client implements Iapp{
 			topicName = parts[1];
 			user.unsubscribeTopic(topicName);
 		}else {
-			System.out.println("We didn't really catch that :T");
+			System.out.println("Wrong case in Client handleUnsusbcribeTopic");
 		}
 	}
 
@@ -167,10 +168,9 @@ public class Client implements Iapp{
 			content = parts[2];
 			user.publishTopic(topicName, content);
 
-		}else{
-			System.out.println("We didn't really catch that :T");
+		} else {
+			System.out.println("Wrong case in Client handlePublishTopic");
 		}
 	}
-
 
 }
