@@ -25,27 +25,27 @@ public class QueueServer {
 		QueueManager queueManager = QueueManager.getInstance();
 		Map<String, Queue> queuesHM = queueManager.getQueues();
 
-		switch(packetType){
+		switch(packetType) {
 		case PUBLISH:
-			try{
+			try {
 				Queue queue;
-				if (queuesHM.containsKey(destinationQueue)){
+				if (queuesHM.containsKey(destinationQueue)) {
 					queue = queuesHM.get(destinationQueue);
 
-				}else{
+				} else {
 					queue = new Queue();
 				}
 				queue.enqueue(message);
 				queue.initNewListOfUsers();
 
 				queuesHM.put(destinationQueue, queue);
-				System.out.println("Message '"+message.getBody().getContent() +"' published at topic " +destinationQueue);
+//				System.out.println("Message '"+message.getBody().getContent() +"' published at topic " +destinationQueue);
 				send(packetType, "Message published!");
 
 				//send message to all subscribers
 				this.broadcastMessageToAllSubscribers(destinationQueue);
 
-			}catch(Exception e){
+			} catch(Exception e) {
 				System.out.println(e.getMessage());
 				send(packetType, "Something went wrong!");	
 			}
@@ -62,12 +62,12 @@ public class QueueServer {
 					socketList.add(socket);
 					QueueManager.getInstance().subscribersQueue.put(destinationQueue, socketList);
 					this.broadcastMessageToAllSubscribers(destinationQueue);
-				}else {
+				} else {
 					System.out.println("Unavaliable Topic!");
 					send(packetType, "This topic is unavaliable.");
 				}
 
-			}catch(Exception e) {
+			} catch(Exception e) {
 				System.out.println(e.getMessage());
 				send(packetType, "Something went wrong!");
 			}
@@ -90,11 +90,11 @@ public class QueueServer {
 						send(packetType, "Unsubscribed Topic!");
 					}
 
-				}else {
+				} else {
 					System.out.println("Unavaliable Topic!");
 					send(packetType, "This topic is unavaliable.");
 				}
-			}catch( Exception e) {
+			} catch( Exception e) {
 				System.out.println(e.getMessage());
 				send(packetType, "Something went wrong!");
 			}
@@ -102,15 +102,12 @@ public class QueueServer {
 			break;
 		default:
 			break;
-
 		}
-
-
-
+		
 		return "";
 	}
 
-	private void send(PacketType packetType, String content) throws IOException{
+	private void send(PacketType packetType, String content) throws IOException {
 		Marshaller marshaller = new Marshaller();
 		MessageHeader messageHeader = new MessageHeader(null);
 		MessageBody messageBody = new MessageBody(content);
@@ -130,7 +127,7 @@ public class QueueServer {
 		Queue messageQueue = topicToMessageQueue.get(topicName);
 		ArrayList<Socket> connections = topicToSubscribersConnection.get(topicName);
 
-		System.out.println("connections attached to topic " + connections.size());
+//		System.out.println("connections attached to topic " + connections.size());
 		for (int i=0; i < connections.size(); i++) {
 			Server.getSRH().setConnectionSocket(connections.get(i));
 
@@ -143,7 +140,7 @@ public class QueueServer {
 						messageQueue.addUserToMessageAtIndex(connections.get(i), j);
 					}
 
-				}catch(IOException e) {
+				} catch(IOException e) {
 					e.getStackTrace();
 				}
 

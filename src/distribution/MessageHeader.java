@@ -16,6 +16,5 @@ public class MessageHeader implements Serializable{
 	public void setDestinationQueue(String destinationQueue) {
 		this.destinationQueue = destinationQueue;
 	}
-	
-	
+
 }

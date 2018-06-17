@@ -13,7 +13,7 @@ import infrastructure.ClientRequestHandler;
 public class QueueManagerProxy implements IQueueManager{
 	private String queueName;
 	private ClientRequestHandler crh;
-	
+
 	public QueueManagerProxy(String queueName) throws UnknownHostException, IOException {
 		this.queueName = queueName;
 		crh = new ClientRequestHandler("localhost", 8080, false);
@@ -33,44 +33,54 @@ public class QueueManagerProxy implements IQueueManager{
 		PacketHeader packetHeader = new PacketHeader(packetType);
 		PacketBody packetBody = new PacketBody(message);
 		Packet packet = new Packet(packetHeader,packetBody);
-		
-		crh.send(marshaller.marshall(packet));
-		
+
+		try {
+			crh.send(marshaller.marshall(packet));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
 	public String receive() throws IOException, ClassNotFoundException {
-		byte [] bytes = crh.receive();
+		byte[] bytes = null;
+		try {
+			bytes = crh.receive();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		Marshaller marshaller = new Marshaller();
-		Packet packet = marshaller.unmarshall(bytes);
+		Packet packet = (Packet) marshaller.unmarshall(bytes);
 		PacketType packetType = packet.getHeader().getType();
 		Message message = packet.getBody().getMessage();
 		switch(packetType){
-			case PUBLISH:
-				return message.getBody().getContent();
-			case SUBSCRIBE:
-				return message.getBody().getContent();
-			case LISTALL:
-				return message.getBody().getContent();
-			case UNSUBSCRIBE:
-				return message.getBody().getContent();
-			default:
-				return null;			
+		case PUBLISH:
+			return message.getBody().getContent();
+		case SUBSCRIBE:
+			return message.getBody().getContent();
+		case LISTALL:
+			return message.getBody().getContent();
+		case UNSUBSCRIBE:
+			return message.getBody().getContent();
+		default:
+			return null;			
 		}
 	}
-	
+
 	private PacketType getPacketType(String type){
 		switch(type){
-			case "publish":
-				return PacketType.PUBLISH;
-			case "subscribe":
-				return PacketType.SUBSCRIBE;
-			case "listAll":
-				return PacketType.LISTALL;
-			case "unsubscribe":
-				return PacketType.UNSUBSCRIBE;
-			default:
-				return PacketType.UNKNOWN;
+		case "publish":
+			return PacketType.PUBLISH;
+		case "subscribe":
+			return PacketType.SUBSCRIBE;
+		case "listAll":
+			return PacketType.LISTALL;
+		case "unsubscribe":
+			return PacketType.UNSUBSCRIBE;
+		default:
+			return PacketType.UNKNOWN;
 		}
 	}
 

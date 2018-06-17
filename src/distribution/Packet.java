@@ -1,4 +1,4 @@
-package distribution.packet;
+package distribution;
 
 import java.io.Serializable;
 
@@ -27,5 +27,6 @@ public class Packet implements Serializable{
 	public void setBody(PacketBody body) {
 		this.body = body;
 	}
+
 
 }

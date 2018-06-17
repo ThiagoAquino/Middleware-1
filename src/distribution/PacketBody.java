@@ -1,8 +1,6 @@
-package distribution.packet;
+package distribution;
 
 import java.io.Serializable;
-
-import distribution.Message;
 
 public class PacketBody implements Serializable{
 	private Message message;
@@ -17,6 +15,5 @@ public class PacketBody implements Serializable{
 
 	public void setMessage(Message message) {
 		this.message = message;
-	}
-
+	}	
 }
