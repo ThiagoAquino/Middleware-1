@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import distribution.QueueManagerProxy;
 
 public class Client implements Iapp {
-	
+
 	private String userAddress;
 	private int userPort;
 	private ArrayList<SubscriberThread> subscriberThreads;
@@ -32,7 +32,7 @@ public class Client implements Iapp {
 	public void setUserPort(int userPort) {
 		this.userPort = userPort;
 	}
-	
+
 
 	public static void main(String [] args) throws UnknownHostException, IOException{
 		Long time = System.currentTimeMillis();
@@ -54,11 +54,13 @@ public class Client implements Iapp {
 
 		System.out.println(userHintString);
 		Scanner in = new Scanner(System.in);
-		
+
+
+		/*** Escrevendo os testes aqui ***/
+		/*
 		boolean shouldContinue = true;
-		int i = 10000;
+		int i = 1000;		
 		while(shouldContinue && i > 0) {
-			//String userChoice = in.nextLine();
 			String userChoice = "publishTopic c teste"+i;
 			if (userChoice.equals("help")) {
 				System.out.println(userHintString);
@@ -80,8 +82,37 @@ public class Client implements Iapp {
 		}
 		shouldContinue = false;
 		System.out.println(System.currentTimeMillis() - time);
+
+
+
+	}		
+		 */		
+		/**até aqui*/
+
+
+		boolean shouldContinue = true;
+		while(shouldContinue) {
+			String userChoice = in.nextLine();
+			if (userChoice.equals("help")) {
+				System.out.println(userHintString);
+			} else if (userChoice.equals("quit")) {
+				System.out.println("See you!");
+				shouldContinue = false;
+			} else if (userChoice.startsWith("publishTopic")) {
+				handlePublishTopic(user, userChoice);
+			} else if (userChoice.startsWith("subscribeTopic")) {
+				handleSubscribeTopic(user, userChoice);	
+			} else if(userChoice.startsWith("unsubscribeTopic")) {
+				handleUnsusbcribeTopic(user, userChoice);
+			} else if (userChoice.startsWith("listTopics")) {
+				user.listTopics();			
+			} else {
+				System.out.println("We didn't really catch that");
+			}
+		}
+		shouldContinue = false;
 	}
-	
+
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
 		String[] parts = userChoice.split(" ");
@@ -102,7 +133,7 @@ public class Client implements Iapp {
 		String topicName;
 		String content;
 		String[] parts = userChoice.split(" ");
-		
+
 		topicName = parts[1];
 		content = parts[2];
 		user.publishTopic(topicName, content);
@@ -116,7 +147,7 @@ public class Client implements Iapp {
 			parameters.put("content",content);
 			QueueManagerProxy proxy = new QueueManagerProxy(topicName);
 			proxy.send("publish",parameters);
-		//	System.out.println(proxy.receive());
+			//	System.out.println(proxy.receive());
 		} catch(Exception e) {
 			System.out.println("Wrong case in Client publishTopic");
 		}

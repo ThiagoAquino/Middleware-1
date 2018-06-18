@@ -21,6 +21,7 @@ public class QueueManagerProxy implements IQueueManager{
 
 	@Override
 	public void send(String function,Map<String,String> parameters) throws UnknownHostException, IOException {
+		Encryption encrypt = new Encryption();
 		Marshaller marshaller = new Marshaller();
 		MessageHeader messageHeader = new MessageHeader(queueName);
 		String content = "content";
@@ -35,7 +36,7 @@ public class QueueManagerProxy implements IQueueManager{
 		Packet packet = new Packet(packetHeader,packetBody);
 
 		try {
-			crh.send(marshaller.marshall(packet));
+			crh.send(marshaller.marshall(encrypt.encrypt(packet)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,8 +52,10 @@ public class QueueManagerProxy implements IQueueManager{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Encryption decrypt = new Encryption();
 		Marshaller marshaller = new Marshaller();
 		Packet packet = (Packet) marshaller.unmarshall(bytes);
+		packet = decrypt.decrypt(packet);
 		PacketType packetType = packet.getHeader().getType();
 		Message message = packet.getBody().getMessage();
 		switch(packetType){

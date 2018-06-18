@@ -15,9 +15,9 @@ public class Marshaller {
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 
 		//Criptografando
-		Packet pckt = encry.encrypt(pkt);
+		//Packet pckt = encry.encrypt(pkt);
 
-		objectStream.writeObject(pckt);		
+		objectStream.writeObject(pkt);		
 		return byteStream.toByteArray();
 	}
 
@@ -26,8 +26,8 @@ public class Marshaller {
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 
 		//Descriptografando
-		Packet pckt = encry.decrypt((Packet) objectStream.readObject());
-
+		//Packet pckt = encry.decrypt((Packet) objectStream.readObject());
+		Packet pckt = ((Packet) objectStream.readObject());
 		return pckt;
 	}
 
