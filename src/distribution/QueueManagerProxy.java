@@ -16,7 +16,8 @@ import infrastructure.ClientRequestHandler;
 public class QueueManagerProxy implements IQueueManager{
 	private String queueName;
 	private ClientRequestHandler crh;
-
+	private Encryption encry = new Encryption();
+	
 	public QueueManagerProxy(String queueName) throws UnknownHostException, IOException {
 		this.queueName = queueName;
 		crh = new ClientRequestHandler("localhost", 8080, false);
@@ -36,8 +37,8 @@ public class QueueManagerProxy implements IQueueManager{
 		PacketHeader packetHeader = new PacketHeader(packetType);
 		PacketBody packetBody = new PacketBody(message);
 		Packet packet = new Packet(packetHeader,packetBody);
-
-		crh.send(marshaller.marshall(packet));
+		Packet pckt = encry.encrypt(packet);
+		crh.send(marshaller.marshall(pckt));
 
 	}
 
@@ -45,9 +46,12 @@ public class QueueManagerProxy implements IQueueManager{
 	public String receive() throws IOException, ClassNotFoundException {
 		byte [] bytes = crh.receive();
 		Marshaller marshaller = new Marshaller();
+		
 		Packet packet = marshaller.unmarshall(bytes);
-		PacketType packetType = packet.getHeader().getType();
-		Message message = packet.getBody().getMessage();
+		Packet pckt = encry.decrypt(packet);
+
+		PacketType packetType = pckt.getHeader().getType();
+		Message message = pckt.getBody().getMessage();
 		switch(packetType){
 		case PUBLISH:
 			return message.getBody().getContent();

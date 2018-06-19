@@ -9,15 +9,15 @@ import java.io.ObjectOutputStream;
 import distribution.packet.Packet;
 
 public class Marshaller {
-	static Encryption encry = new Encryption();
+//	static Encryption encry = new Encryption();
 	public byte[] marshall(Packet pkt) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 
 		//Criptografando
-		Packet pckt = encry.encrypt(pkt);
+//		Packet pckt = encry.encrypt(pkt);
 
-		objectStream.writeObject(pckt);		
+		objectStream.writeObject(pkt);		
 		return byteStream.toByteArray();
 	}
 
@@ -26,8 +26,8 @@ public class Marshaller {
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 
 		//Descriptografando
-		Packet pckt = encry.decrypt((Packet) objectStream.readObject());
+//		Packet pckt = encry.decrypt((Packet) objectStream.readObject());
 
-		return pckt;
+		return (Packet) objectStream.readObject();
 	}
 }
