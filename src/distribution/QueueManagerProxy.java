@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Map;
 
+import distribution.message.Message;
+import distribution.message.MessageBody;
+import distribution.message.MessageHeader;
 import distribution.packet.Packet;
 import distribution.packet.PacketBody;
 import distribution.packet.PacketHeader;

@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 import application.Server;
+import distribution.message.Message;
+import distribution.message.MessageBody;
+import distribution.message.MessageHeader;
 import distribution.packet.Packet;
 import distribution.packet.PacketBody;
 import distribution.packet.PacketHeader;

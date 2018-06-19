@@ -1,4 +1,4 @@
-package distribution;
+package distribution.message;
 
 import java.io.Serializable;
 

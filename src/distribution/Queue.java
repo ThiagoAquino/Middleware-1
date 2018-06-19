@@ -1,6 +1,9 @@
 package distribution;
 
 import java.util.ArrayList;
+
+import distribution.message.Message;
+
 import java.net.Socket;
 
 public class Queue {

@@ -12,16 +12,15 @@ public class Server {
 	private static boolean serverIsUp = false;
 	private static QueueServer queueServer;
 	private static ServerRequestHandler srh; 
-	
+
 	public static void main(String [] args) throws IOException{
 		String choice = "";
-		String serverHintString = "Welcome to MOM Middleware!\n"
-				+ "Here are some functions you can invoke:\n"
+		String serverHintString = "functions you can invoke:\n"
 				+ "startServer : Start the Server \n"
 				+ "help : Shows intructions\n"
 				+ "quit : Shutdown server\n";
 		System.out.println(serverHintString);
-		
+
 		Scanner in = new Scanner(System.in);
 		while(shouldContinue){
 			choice = in.nextLine();

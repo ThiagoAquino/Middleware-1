@@ -2,7 +2,7 @@ package distribution.packet;
 
 import java.io.Serializable;
 
-import distribution.Message;
+import distribution.message.Message;
 
 public class PacketBody implements Serializable{
 	private Message message;

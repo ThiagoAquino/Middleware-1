@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import distribution.QueueManagerProxy;
 
 public class Client implements Iapp {
-	
+
 	private String userAddress;
 	private int userPort;
 	private ArrayList<SubscriberThread> subscriberThreads;
@@ -32,7 +32,7 @@ public class Client implements Iapp {
 	public void setUserPort(int userPort) {
 		this.userPort = userPort;
 	}
-	
+
 
 	public static void main(String [] args) throws UnknownHostException, IOException{
 		Client user = null;
@@ -53,7 +53,7 @@ public class Client implements Iapp {
 
 		System.out.println(userHintString);
 		Scanner in = new Scanner(System.in);
-		
+
 		boolean shouldContinue = true;
 		while(shouldContinue) {
 			String userChoice = in.nextLine();
@@ -76,7 +76,7 @@ public class Client implements Iapp {
 
 		}
 	}
-	
+
 	private static void handleSubscribeTopic(Client user, String userChoice) {
 		String topicName;
 		String[] parts = userChoice.split(" ");
@@ -97,7 +97,7 @@ public class Client implements Iapp {
 		String topicName;
 		String content;
 		String[] parts = userChoice.split(" ");
-		
+
 		topicName = parts[1];
 		content = parts[2];
 		user.publishTopic(topicName, content);
