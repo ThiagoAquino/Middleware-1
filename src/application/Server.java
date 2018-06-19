@@ -15,7 +15,7 @@ public class Server {
 
 	public static void main(String [] args) throws IOException{
 		String choice = "";
-		String serverHintString = "functions you can invoke:\n"
+		String serverHintString = "functions you can invoke:\n\n"
 				+ "startServer : Start the Server \n"
 				+ "help : Shows intructions\n"
 				+ "quit : Shutdown server\n";

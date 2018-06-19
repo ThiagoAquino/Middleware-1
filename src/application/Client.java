@@ -42,8 +42,7 @@ public class Client implements Iapp {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		String userHintString = "Welcome to MOM Middleware!\n"
-				+ "Here are some functions you can invoke:\n"
+		String userHintString = "functions you can invoke:\n\n"
 				+ "help : Shows intructions\n"
 				+ "quit : Quit application\n"
 				+ "publishTopic topicName content  : publishes topic\n"
